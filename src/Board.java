@@ -10,16 +10,16 @@ public class Board {
     private int m = 6;
     private int n = 6;
     private Positie positie;
-    private int counter = 1;
+    private int teller = 1;
     private int[][] prio = new int[m][n];
-    private int[][] board = new int[m][n];
+    private int[][] bord = new int[m][n];
 
     public Board(int size1, int size2) {
         m = size1;
         n = size2;
 
         positie = new Positie(0, 0);
-        board[positie.getX()][positie.getY()] = 1;
+        bord[positie.getX()][positie.getY()] = 1;
 
         for (int i = 0; i < m / 2; i++) {
             for (int j = 0; i < n / 2; j++) {
@@ -32,7 +32,7 @@ public class Board {
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                board[i][j] = m * n + 1;
+                bord[i][j] = m * n + 1;
             }
         }
     }
@@ -60,26 +60,26 @@ public class Board {
             Positie p2 = new Positie(p.getX(), p.getY());
             p2.add(sprong[i]);
 
-            if (p2.getX() >= 0 && p2.getX() < m && p2.getY() >= 0 && p2.getY() < 6 && board[p2.getX()][p2.getY()] > counter) {
+            if (p2.getX() >= 0 && p2.getX() < m && p2.getY() >= 0 && p2.getY() < 6 && bord[p2.getX()][p2.getY()] > teller) {
                 mogelijkheden.add(p2);
             }
 
         }
         Positie doel = besteStap((Positie[]) mogelijkheden.toArray());
 
-        counter++;
-        board[doel.getX()][doel.getY()] = counter;
+        teller++;
+        bord[doel.getX()][doel.getY()] = teller;
         positie = doel;
     }
 
-
     private boolean gevonden(Positie p) {
         int aantal = m * n;
-        return board[p.getX()][p.getY()] >= aantal;
+        return bord[p.getX()][p.getY()] >= aantal;
     }
 
     public int getHeuristiek(Positie p) {
         positie = p;
-        return board[p.getX()][p.getY()];
+        return bord[p.getX()][p.getY()];
     }
+
 }
