@@ -1,0 +1,1 @@
+We weten niet helemaal of onze code aan de opdracht voldoet, maar aangezien de pseudocode mistte, hebben we zelf maar wat bedacht. 
