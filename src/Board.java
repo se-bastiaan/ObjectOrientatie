@@ -1,85 +1,154 @@
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Giel Besouw - s4483898
- * @author Sébastiaan Versteeg - s4459636
+ * @author Sébastiaan Versteeg // s4459636
+ * @author Giel Besouw // s4483898
  */
 public class Board {
 
-    private int m = 6;
-    private int n = 6;
-    private Positie positie;
-    private int teller = 1;
-    private int[][] prio = new int[m][n];
-    private int[][] bord = new int[m][n];
+    private final String NOT_VISITED = " ";
+    private final String VISITED = ".";
+    private final String KNIGHT = "K";
 
-    public Board(int size1, int size2) {
-        m = size1;
-        n = size2;
+    private int mSize, mPositionsVisited;
+    private boolean[][] mBoard;
 
-        positie = new Positie(0, 0);
-        bord[positie.getX()][positie.getY()] = 1;
+    public Board(int size) {
+        mPositionsVisited = 0;
+        mSize = size;
+        mBoard = initBoard(size);
+    }
 
-        for (int i = 0; i < m / 2; i++) {
-            for (int j = 0; i < n / 2; j++) {
-                prio[i][j] = i + j;
-                prio[m - 1 - i][j] = i + j;
-                prio[i][n - 1 - j] = i + j;
-                prio[m - 1 - i][n - 1 - j] = i + j;
+    private boolean[][] initBoard(int size) {
+        boolean[][] board = new boolean[size][size];
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
+                board[y][x] = false;
+            }
+        }
+        return board;
+    }
+
+    /**
+     * Check if the position is valid
+     *
+     * @param p {@link Position}
+     * @return {@code true} if the position is valid, {@code false} if the position is out of bounds
+     */
+    public boolean isValidPosition(Position p) {
+        int x = p.getX();
+        int y = p.getY();
+
+        return !(x < 0 || y < 0 || x >= mSize || y >= mSize);
+    }
+
+    /**
+     * Get state of position
+     *
+     * @param p {@link Position}
+     * @return {@code true} if the position has been visited, {@code false} if the position has not
+     */
+    public boolean getPositionState(Position p) {
+        if (!isValidPosition(p)) {
+            throw new IndexOutOfBoundsException("The provided position does not exist in this board.");
+        }
+        return mBoard[p.getY()][p.getX()];
+    }
+
+    /**
+     * Set state of position
+     *
+     * @param p     {@link Position}
+     * @param state {@code true} if the position is visited, {@code false} if the position is not
+     */
+    public void setPositionState(Position p, boolean state) {
+        if (!isValidPosition(p)) {
+            throw new IndexOutOfBoundsException("The provided position does not exist in this board.");
+        }
+
+        int x = p.getX();
+        int y = p.getY();
+
+        if (mBoard[y][x] != state) {
+            // Increase visit count for true states, decrease for false
+            if (state) {
+                mPositionsVisited++;
+            } else {
+                mPositionsVisited--;
             }
         }
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                bord[i][j] = m * n + 1;
-            }
+        mBoard[y][x] = state;
+    }
+
+    /**
+     * @return Board size
+     */
+    public int getSize() {
+        return mSize * mSize;
+    }
+
+    /**
+     * Print all moves
+     * @param moves list of moves
+     */
+    public void outputAllMoves(List<Position> moves) {
+        Position initial = moves.get(0);
+        moves.remove(0);
+
+        Board b = new Board(mSize);
+        Knight k = new Knight(initial);
+        setPositionState(initial, true);
+
+        int i = 1;
+        System.out.println("1: " + (initial.getX()) + "," + (initial.getY()));
+        System.out.println(b.buildString(k));
+        for (Position move : moves) {
+            System.out.println(i + ": " + (move.getX()) + "," + (move.getY()));
+            k.moveToPosition(b, move);
+            System.out.println(b.buildString(k));
+            i++;
         }
     }
 
-    private Positie besteStap(Positie[] pa) {
-        Positie p = new Positie(0, 0);
-        int pr = 100000;
-        for(Positie aPa : pa) {
-            if (prio[aPa.getX()][aPa.getY()] < pr) {
-                p = aPa;
-            }
+    private String buildString() {
+        return buildString(null);
+    }
+
+    private String buildString(Knight knight) {
+        Position knight_position = null != knight ? knight.getPosition() : null;
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < (mSize * 4) + 1; i++) {
+            sb.append("-");
         }
-        return p;
-    }
+        sb.append('\n');
+        String hr = sb.toString();
 
-    private void zoekPad(Positie p) {
-        Positie[] sprong =
-                {
-                        new Positie(1, 2), new Positie(1, -2), new Positie(2, 1), new Positie(2, -1), new Positie(-1, 2), new Positie(-1, -2), new Positie(-2, 1), new Positie(-2, -1)
-                };
-
-
-        List<Positie> mogelijkheden = new ArrayList<Positie>();
-        for (int i = 0; i < 8; i++) {
-            Positie p2 = new Positie(p.getX(), p.getY());
-            p2.add(sprong[i]);
-
-            if (p2.getX() >= 0 && p2.getX() < m && p2.getY() >= 0 && p2.getY() < 6 && bord[p2.getX()][p2.getY()] > teller) {
-                mogelijkheden.add(p2);
+        sb = new StringBuilder();
+        for(int y = 0; y < mSize; y++) {
+            sb.append(hr);
+            sb.append("| ");
+            for(int x = 0; x < mSize; x++) {
+                if(knight_position != null && knight_position.getX() == x && knight_position.getY() == y) {
+                    sb.append(KNIGHT);
+                } else if(getPositionState(new Position(x, y))) {
+                    sb.append(VISITED);
+                } else {
+                    sb.append(NOT_VISITED);
+                }
             }
-
+            sb.append(" |");
+            sb.append('\n');
         }
-        Positie doel = besteStap((Positie[]) mogelijkheden.toArray());
+        sb.append(hr);
 
-        teller++;
-        bord[doel.getX()][doel.getY()] = teller;
-        positie = doel;
+        return sb.toString();
     }
 
-    private boolean gevonden(Positie p) {
-        int aantal = m * n;
-        return bord[p.getX()][p.getY()] >= aantal;
-    }
-
-    public int getHeuristiek(Positie p) {
-        positie = p;
-        return bord[p.getX()][p.getY()];
+    @Override
+    public String toString() {
+        return buildString();
     }
 
 }
