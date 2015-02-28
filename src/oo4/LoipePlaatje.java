@@ -1,3 +1,5 @@
+package oo4;
+
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -36,7 +38,7 @@ public class LoipePlaatje extends JFrame implements TekenLoipe {
      * Constructor. Fill all icons.
      */
     public LoipePlaatje(InfoLoipe s) {
-        super("Loipe");
+        super("oo4.Loipe");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         nz = plaatje("nz");
         ow = plaatje("ow");
@@ -54,9 +56,9 @@ public class LoipePlaatje extends JFrame implements TekenLoipe {
     }
 
     /**
-     * Creates a LoipePlaatje object based on the track information in <code>Loipe</code>.
+     * Creates a oo4.LoipePlaatjeatje object based on the track information in <code>oo4.Loipe</code>.
      *
-     * @param s this Loipe contains the 2D track information
+     * @param s this oo4.Loipe contains the 2D track information
      */
     public void setLoipe(InfoLoipe s) {
         loipe = s;
@@ -179,7 +181,7 @@ public class LoipePlaatje extends JFrame implements TekenLoipe {
             setSize(loipe.getWidth() * UNIT, loipe.getHeight() * UNIT + UNIT / 2);
             setVisible(true);     // make frame visible
         } else
-            System.err.println("LoipePlaatje kan niet tekenen. Loipe is ongeldig of plaatjes niet gevonden");
+            System.err.println("oo4.ui4.LoipePlaatje kan niet tekenen. oo4.Loipe is ongeldig of plaatjes niet gevonden");
     }
 
     @Override

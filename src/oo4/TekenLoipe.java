@@ -1,3 +1,5 @@
+package oo4;
+
 /**
  * @author Sébastiaan Versteeg / s4459636
  */

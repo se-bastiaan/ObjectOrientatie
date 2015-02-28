@@ -1,5 +1,7 @@
+package oo4;
+
 /**
- * Een Punt in 2D
+ * Een oo4.Punt in 2D
  *
  * @author pieter koopman
  */
@@ -10,12 +12,12 @@ public class Punt {
     /**
      * de gewone constructor
      *
-     * @param i: x
-     * @param j; y
+     * @param x: x
+     * @param y; y
      */
-    public Punt(int i, int j) {
-        x = i;
-        y = j;
+    public Punt(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -67,7 +69,7 @@ public class Punt {
     }
 
     /**
-     * Punt naar String conversie
+     * oo4.Punt naar String conversie
      *
      * @return Strin met waarde van x en y
      */
