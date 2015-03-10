@@ -2,27 +2,31 @@ package oo6;
 
 /**
  * @author Sjaak Smetsers
- * @version 1.1
- * @date 28-02-2013
- * An enumeration type for the 4 points of the compass 
+ * @author Sébastiaan Versteeg
+ * @version 1.2
+ * @since 28-02-2013
+ * An enumeration type for the 4 points of the compass
  * Each constant has 2 (final) int attributes indicating
- * the displacement of each direction on a 2-dimensional grid 
+ * the displacement of each direction on a 2-dimensional grid
  * of which the origin is located in the upper left corner
  */
 public enum Direction {
-    NORTH (0,-1), EAST (1,0), SOUTH(0,1), WEST(-1,0);
-    
+
+    NORTH(0, -1), EAST(1, 0), SOUTH(0, 1), WEST(-1, 0);
+
     private final int dx, dy;
-    private Direction (int dx, int dy) {
+
+    private Direction(int dx, int dy) {
         this.dx = dx;
         this.dy = dy;
     }
-    
-    public int GetDX () {
+
+    public int getDX() {
         return dx;
     }
 
-    public int GetDY () {
+    public int getDY() {
         return dy;
     }
+
 }

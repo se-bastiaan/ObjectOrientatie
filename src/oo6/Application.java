@@ -1,13 +1,10 @@
 package oo6;
 
-import java.util.List;
-
-
 /**
- *
- * @author Pieter Koopman, Sjaak Smetsers
+ * @author Name 1 // s.......
+ * @author Name 2 // s.......
  */
-public class Main
+public class Application
 {
 
     public static void main(String[] args) {
@@ -15,7 +12,10 @@ public class Main
 
         SlidingGame s = new SlidingGame (game);
         System.out.println(s);
-//        Solver solver = new Solver(s);
-//        System.out.println(solver.solve());
+
+        /*
+        oo6.Solver solver = new oo6.Solver(s);
+        System.out.println(solver.solve());
+        */
     }
 }
