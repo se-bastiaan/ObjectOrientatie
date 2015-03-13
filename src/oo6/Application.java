@@ -1,21 +1,19 @@
 package oo6;
 
 /**
- * @author Name 1 // s.......
- * @author Name 2 // s.......
+ * @author Sébastiaan Versteeg // s4459636
  */
 public class Application
 {
 
     public static void main(String[] args) {
-        int [] game = {1,2,3, 4,5,6, 7,9,8};
+        int [] game = {2,9,3, 1,5,6, 4,7,8};
 
-        SlidingGame s = new SlidingGame (game);
+        SlidingGame s = new SlidingGame(game);
         System.out.println(s);
 
-        /*
-        oo6.Solver solver = new oo6.Solver(s);
+        Solver solver = new Solver(s);
         System.out.println(solver.solve());
-        */
     }
+
 }

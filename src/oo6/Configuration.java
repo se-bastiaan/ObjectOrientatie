@@ -7,7 +7,7 @@ import java.util.Collection;
  * configurations of which the structure cannot be changed.
  *
  * @author Sjaak Smetsers
- * @author Sébastiaan Versteeg
+ * @author Sébastiaan Versteeg // s4459636
  * @version 1.2
  * @since 28-02-2013
  */
@@ -21,7 +21,7 @@ public interface Configuration extends Comparable<Configuration> {
     public Collection<Configuration> successors();
 
     /**
-     * For marking final / goal Graphs.
+     * For marking final / goal Configuration.
      *
      * @return {@code true} when the {@link Configuration} is a solution for the problem. {@code false} if not.
      */

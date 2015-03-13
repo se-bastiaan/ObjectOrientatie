@@ -2,7 +2,6 @@ package oo6;
 
 /**
  * @author Sjaak Smetsers
- * @author Sébastiaan Versteeg
  * @version 1.2
  * @since 28-02-2013
  * An enumeration type for the 4 points of the compass
@@ -21,10 +20,18 @@ public enum Direction {
         this.dy = dy;
     }
 
+    /**
+     * Get dX of Direction
+     * @return dx
+     */
     public int getDX() {
         return dx;
     }
 
+    /**
+     * Get dY of Direction
+     * @return dy
+     */
     public int getDY() {
         return dy;
     }
