@@ -76,6 +76,16 @@ public class Term {
     }
 
     /**
+     * For dividing two terms
+     *
+     * @param t the multiplier
+     */
+    public void divide(Term t) {
+        exponent -= t.exponent;
+        coefficient /= t.coefficient;
+    }
+
+    /**
      * Converts a term into a readable representation the standard format is
      * %fx^%d
      *
