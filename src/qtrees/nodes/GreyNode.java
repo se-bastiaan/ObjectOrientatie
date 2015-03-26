@@ -40,30 +40,10 @@ public class GreyNode extends QTNode {
     @Override
     public void fillBitmap(int x, int y, int width, Bitmap bitmap) {
         int quadrant = width / 2;
+        int xPos[] = {x, x + quadrant, x + quadrant, x};
+        int yPos[] = {y, y, y + quadrant, y + quadrant};
         for(int i = 0; i < 4; i++) {
-            int dx = 0, dy = 0;
-
-            // Could do this with some calculations. But I'm lazy.
-            switch (i) {
-                case 0:
-                    dx = x;
-                    dy = y;
-                    break;
-                case 1:
-                    dx = x + quadrant;
-                    dy = y;
-                    break;
-                case 2:
-                    dx = x + quadrant;
-                    dy = y + quadrant;
-                    break;
-                case 3:
-                    dx = x;
-                    dy = y + quadrant;
-                    break;
-            }
-
-            nodes[i].fillBitmap(dx, dy, quadrant, bitmap);
+            nodes[i].fillBitmap(xPos[i], yPos[i], quadrant, bitmap);
         }
     }
 

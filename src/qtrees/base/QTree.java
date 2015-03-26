@@ -66,31 +66,11 @@ public class QTree {
         if(width != 1) {
             QTNode nodes[] = new QTNode[4];
             int quadrant = width / 2;
+            int xPos[] = {x, x + quadrant, x + quadrant, x};
+            int yPos[] = {y, y, y + quadrant,  y + quadrant};
             int type = 0;
             for (int i = 0; i < 4; i++) {
-                int dx = 0, dy = 0;
-
-                // Could do this with some calculations. But I'm lazy.
-                switch (i) {
-                    case 0:
-                        dx = x;
-                        dy = y;
-                        break;
-                    case 1:
-                        dx = x + quadrant;
-                        dy = y;
-                        break;
-                    case 2:
-                        dx = x + quadrant;
-                        dy = y + quadrant;
-                        break;
-                    case 3:
-                        dx = x;
-                        dy = y + quadrant;
-                        break;
-                }
-
-                QTNode node = bitmap2QTree(dx, dy, quadrant, bitmap);
+                QTNode node = bitmap2QTree(xPos[i], yPos[i], quadrant, bitmap);
                 nodes[i] = node;
                 if(node instanceof BlackLeaf) {
                     type++;
