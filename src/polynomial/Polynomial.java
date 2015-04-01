@@ -57,7 +57,7 @@ public class Polynomial {
      * Sort all terms by exponent and remove 0 coeffs
      */
     private void sortAndCheckTerms() {
-        terms.sort(new Comparator<Term>() {
+        Collections.sort(terms, new Comparator<Term>() {
             @Override
             public int compare(Term o1, Term o2) {
                 if (o1.getExp() < o2.getExp()) {
