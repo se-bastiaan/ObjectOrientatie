@@ -18,14 +18,11 @@ public class MainWindow extends JFrame {
     private static Integer HEIGHT = 300;
     private static Integer WIDTH = 200;
 
+    private JButton button;
     private ImagePanel imagePanel;
-    private BuienradarAPI api;
-    private WeerstationComboBoxModel weerstationComboBoxModel;
-    private Boolean refreshing = false;
-    private JLabel tempLabel;
+    private JComboBox<Weerstation> comboBox;
 
-    public MainWindow(BuienradarAPI api) {
-        this.api = api;
+    public MainWindow() {
         initUI();
     }
 
@@ -34,49 +31,36 @@ public class MainWindow extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        List<Weerstation> weerstationList = api.getWeerstations();
-        weerstationComboBoxModel = new WeerstationComboBoxModel();
-        weerstationComboBoxModel.addAll(weerstationList);
-        JComboBox<Weerstation> comboBox = new JComboBox<>();
-        comboBox.setModel(weerstationComboBoxModel);
-        comboBox.addActionListener(selectActionListener);
+        comboBox = new JComboBox<>();
         add(comboBox, BorderLayout.SOUTH);
 
         imagePanel = new ImagePanel();
         add(imagePanel, BorderLayout.CENTER);
-        tempLabel = new JLabel();
 
-        JButton button = new JButton("Refresh");
-        button.addActionListener(menuActionListener);
+        button = new JButton("Refresh");
 
         add(button, BorderLayout.NORTH);
 
         setVisible(true);
     }
 
-    private ActionListener menuActionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            refreshing = true;
-            api.refresh();
-            weerstationComboBoxModel.removeAllElements();
-            weerstationComboBoxModel.addAll(api.getWeerstations());
-            imagePanel.setImageURL(null);
-            refreshing = false;
-        }
-    };
+    public void addComboBoxListener(ActionListener actionListener) {
+        comboBox.addActionListener(actionListener);
+        invalidate();
+    }
 
-    private ActionListener selectActionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("comboBoxChanged") && !refreshing) {
-                Weerstation weerstation = (Weerstation) weerstationComboBoxModel.getSelectedItem();
-                try {
-                    imagePanel.setImageURL(new URL(weerstation.getIcon()));
-                } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        }
-    };
+    public void addButtonListener(ActionListener actionListener) {
+        button.addActionListener(actionListener);
+        invalidate();
+    }
+
+    public void setComboBoxModel(DefaultComboBoxModel model) {
+        comboBox.setModel(model);
+        invalidate();
+    }
+
+    public void setImageURL(URL url) {
+        imagePanel.setImageURL(url);
+        invalidate();
+    }
 }
