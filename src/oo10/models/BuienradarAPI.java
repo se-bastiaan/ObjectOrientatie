@@ -9,6 +9,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Buienradar API class
+ */
 public class BuienradarAPI {
 
     private List<Weerstation> weerstations;
@@ -17,6 +20,9 @@ public class BuienradarAPI {
         refresh();
     }
 
+    /**
+     * Refresh all data in the API object
+     */
     public void refresh() {
         try {
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -54,6 +60,10 @@ public class BuienradarAPI {
         }
     }
 
+    /**
+     * Retrieve list of weerstations
+     * @return {@link java.util.List<oo10.models.Weerstation>}
+     */
     public List<Weerstation> getWeerstations() {
         return weerstations;
     }

@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * The Main Application Controller
+ */
 public class MainController {
 
     private MainWindow window;
@@ -17,6 +20,11 @@ public class MainController {
     private WeerstationComboBoxModel weerstationComboBoxModel;
     private Boolean refreshing = false;
 
+    /**
+     * Main Constructor
+     * @param window {@link oo10.views.MainWindow}
+     * @param api {@link oo10.models.BuienradarAPI}
+     */
     public MainController(MainWindow window, BuienradarAPI api) {
         this.api = api;
         this.window = window;
@@ -30,6 +38,9 @@ public class MainController {
         refresh();
     }
 
+    /**
+     * Refresh items
+     */
     private void refresh() {
         api.refresh();
 
@@ -38,25 +49,35 @@ public class MainController {
         }
     }
 
+    /**
+     * Action on button press
+     */
     private ActionListener buttonActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             refreshing = true;
             api.refresh();
+            Weerstation weerstation = (Weerstation) weerstationComboBoxModel.getSelectedItem();
             weerstationComboBoxModel.removeAllElements();
             weerstationComboBoxModel.addAll(api.getWeerstations());
-            window.setImageURL(null);
+            weerstationComboBoxModel.setSelectedItem(weerstation);
+            selectActionListener.actionPerformed(null);
             refreshing = false;
         }
     };
 
+    /**
+     * Action on combobox change
+     */
     private ActionListener selectActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(e.getActionCommand().equals("comboBoxChanged") && !refreshing) {
+            if(e == null || e.getActionCommand().equals("comboBoxChanged") && !refreshing) {
                 Weerstation weerstation = (Weerstation) weerstationComboBoxModel.getSelectedItem();
                 try {
                     window.setImageURL(new URL(weerstation.getIcon()));
+                    window.setTempText("Temperature: " + weerstation.getTemperatuur());
+                    window.setWindText("Wind: " + weerstation.getWindrichting());
                 } catch (MalformedURLException e1) {
                     e1.printStackTrace();
                 }
