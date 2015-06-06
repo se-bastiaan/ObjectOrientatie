@@ -13,7 +13,7 @@ class Regelaar {
     }
 
     public void leave() {
-        
+
     }
 
 }
