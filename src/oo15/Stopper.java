@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package oo15;
 
-package oo14;
-
-class Regelaar {
-
-    public void cross(Direction d) {
-
-    }
-
-    public void leave() {
-
-    }
-
+/**
+ *
+ * @author Sjaak
+ */
+public interface Stopper {
+    void tryToStop();
 }
