@@ -5,6 +5,9 @@ Quality is not guaranteed, especially the last weeks are rush projects. And I ha
 
 ## Overview of the projects
 
+* Week 1: Studentenindex
+* Week 2: Galgje
+* Week 3: A Knight's tour
 * Week 4: drawing loipes - Enum; switch; encapsulation; interfaces
 * Week 5: quiz - subclasses; inheritance; Collections; (enhanced) for loops
 * Week 6: sliding game solver - Lists; search algorithms; generic classes; hash method; PriorityQueues
